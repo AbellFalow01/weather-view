@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/34094da06a.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js" integrity="sha512-h9644v03pHqrIHThkvXhB2PJ8zf5E9IyVnrSfZg8Yj8k4RsO4zldcQc4Bi9iVLUCCsqNY0b4WXVV4UB+wbWENA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Weather View</title>
+</head>
+<body>
+    
+    <header>
+        <div class="header-logo">
+            <i class="fa-solid fa-cloud"></i>
+            <h2>Weather View</h2>
+        </div>
+        <div class="header-setting">
+            <div class="dropdown">
+                <div class="select">
+                    <span class="selected">Imperial</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li class="active">Imperial</li>
+                    <li>Metric</li>
+                </ul>
+            </div>
+            <div class="light-dark-switch">
+                <p>DARK</p>
+                <input type="checkbox" id="lightDarkCheckbox">
+                <label for="lightDarkCheckbox"></label>
+                <p>LIGHT</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>How's the sky looking today?</h1>
+        <div class="search-box">
+            <input type="text" name="" id="searchInput" placeholder="Search for a place...">
+            <button onclick="searchQuery()">Search</button>
+        </div>
+        <div class="big-box">
+            <div class="left-side">
+                <div class="top-box">
+                    <div class="top-box-left">
+                        <h2 id="cityCountry">Berlin, Germany</h2>
+                        <p id="currentDate">Tuesday, Aug 5, 2025</p>
+                    </div>
+                    <div class="top-box-right">
+                        <img id="currentImage" src="icons/clear.png" alt="">
+                        <h1 id="currentTemp">20°</h1>
+                    </div>
+                </div>
+                <div class="middle-box">
+                    <div>
+                        <h4>Feels Like</h4>
+                        <p id="feelsLike">18°</p>
+                    </div>
+                    <div id="humidityBox">
+                        <h4>Humidity</h4>
+                        <p id="humidity">46%</p>
+                    </div>
+                    <div>
+                        <h4>Wind</h4>
+                        <p id="wind">14 mph</p>
+                    </div>
+                    <div>
+                        <h4>Precipitation</h4>
+                        <p id="precipitation">0 inches</p>
+                    </div>
+                </div>
+                <h2>Daily forecast</h2>
+                <div class="bottom-box">
+                    <div>
+                        <p>Tue</p>
+                        <img src="icons/clear.png" alt="">
+                        <div>
+                            <p>13°</p>
+                            <p>7°</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Wed</p>
+                        <img src="icons/clear.png" alt="">
+                        <div>
+                            <p>13°</p>
+                            <p>7°</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Thu</p>
+                        <img src="icons/clear.png" alt="">
+                        <div>
+                            <p>13°</p>
+                            <p>7°</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Fri</p>
+                        <img src="icons/clear.png" alt="">
+                        <div>
+                            <p>13°</p>
+                            <p>7°</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Sat</p>
+                        <img src="icons/clear.png" alt="">
+                        <div>
+                            <p>13°</p>
+                            <p>7°</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Sun</p>
+                        <img src="icons/clear.png" alt="">
+                        <div>
+                            <p>13°</p>
+                            <p>7°</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Mon</p>
+                        <img src="icons/clear.png" alt="">
+                        <div>
+                            <p>13°</p>
+                            <p>7°</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="right-head">
+                    <p>Hourly forecast</p>
+                </div>
+                <div class="right-box">
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>3 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>4 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>5 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>6 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>7 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>8 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>9 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="icons/clear.png" alt="">
+                            <p>11 PM</p>
+                        </div>
+                        <p>20°</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
