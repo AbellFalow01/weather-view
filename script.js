@@ -12,7 +12,12 @@ var Metric = {
     precipitation_unit: "mm"
 }
 
-sessionStorage.setItem('settings', JSON.stringify(Imperial));
+let currentCoordinates;
+let currentCityCountry ;
+
+if (!sessionStorage.getItem('settings')) {
+    sessionStorage.setItem('settings', JSON.stringify(Imperial));
+}
 
 const lightDarkCheckbox = document.querySelector('#lightDarkCheckbox');
 lightDarkCheckbox.addEventListener("click", () => {
@@ -46,11 +51,11 @@ dropdowns.forEach(dropdown => {
 
             if (selected.innerText === "Imperial") {
                 sessionStorage.setItem("settings", JSON.stringify(Imperial))
-                searchQuery();
+                reloadWeather();
             }
             if (selected.innerText === "Metric") {
                 sessionStorage.setItem("settings", JSON.stringify(Metric))
-                searchQuery();
+                reloadWeather();
             }
             
             options.forEach(option => {
@@ -347,20 +352,27 @@ const getWeatherImage = (weatherCode) => {
 
 const searchQuery = async () => {
     const searchInput = document.querySelector('#searchInput').value;
-    const coordinates = await getCoordinates(searchInput);
-    const cityCountry = await getCityCountry(coordinates);
-    const weatherInfo = await getWeather(coordinates);
-    updatePage(weatherInfo, cityCountry);
+    currentCoordinates = await getCoordinates(searchInput);
+    currentCityCountry = await getCityCountry(currentCoordinates);
+    const weatherInfo = await getWeather(currentCoordinates);
+    updatePage(weatherInfo, currentCityCountry);
+}
+
+const reloadWeather = async () => {
+    if (!currentCoordinates) return;
+
+    const weatherInfo = await getWeather(currentCoordinates);
+    updatePage(weatherInfo, currentCityCountry);
 }
 
 const onLoad = async () => {
     const date = getDate();
     document.querySelector('#currentDate').innerText = `${date.currentDate}`;
     const currentLocation = await getCurrentLocation();
-    const coordinates = await getCoordinates(currentLocation);
-    const cityCountry = await getCityCountry(coordinates);
-    const weatherInfo = await getWeather(coordinates);
-    updatePage(weatherInfo, cityCountry);
+    currentCoordinates = await getCoordinates(currentLocation);
+    currentCityCountry = await getCityCountry(currentCoordinates);
+    const weatherInfo = await getWeather(currentCoordinates);
+    updatePage(weatherInfo, currentCityCountry);
 }
 
 onLoad();
